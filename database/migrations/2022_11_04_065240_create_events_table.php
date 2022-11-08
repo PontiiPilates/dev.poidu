@@ -19,7 +19,8 @@ class CreateEventsTable extends Migration
             $table->string('url')->default(NULL)->comment('Ссылка на источник');
             $table->json('tags')->default(NULL)->comment('Теги');
             $table->string('payment')->default(NULL)->comment('Форма участия');
-            $table->string('logo')->default(NULL)->comment('Имя файла логотипа организатора');
+            $table->string('logo')->nullable()->comment('Имя файла логотипа организатора');
+            $table->timestamp('start')->nullable()->comment('Дата и время начала мероприятия');
 
 //            $table->integer('cost')->default(NULL)->comment('Стоимость мероприятя');
 //            $table->integer('free')->default(NULL)->comment('Мероприятие бесплатно');

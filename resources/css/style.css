@@ -1,0 +1,100 @@
+:root {
+    --color-secondary: #adb5bd;
+    --color-accent: #212529;
+    --gradient-brand: 135deg, #FFC01A, #FF2FD2, #C824FF;
+    --shadow-element: 0px 0px 25px 0px rgba(34, 60, 80, 0.15);
+}
+
+/* -------------------------- + */
+/* Tools                      | */
+/* -------------------------- + */
+
+/* Ограничение ширины области контента */
+.device {
+    max-width: 768px;
+}
+
+/* Цвет для вспомогательных элементов */
+.color-secondary {
+    color: var(--color-secondary);
+}
+
+/* Тень для элементов */
+.soft-shadow {
+    -webkit-box-shadow: var(--shadow-element);
+    -moz-box-shadow: var(--shadow-element);
+    box-shadow: var(--shadow-element);
+}
+
+/* Скругление углов для элементов */
+.rounded-element {
+    border-radius: 20px;
+}
+
+/* Скругление углов для изображений в слайдере */
+.rounded-image {
+    border-top-left-radius: calc(20px - 1px) !important;
+    border-top-right-radius: calc(20px - 1px) !important;
+}
+
+/* Размеры шрифтов для быстрого применения */
+.fs-12 {
+    font-size: 12px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+/* -------------------------- + */
+/* Настройка логотипа         | */
+/* -------------------------- + */
+
+.brand {
+    background-color: #FFC01A;
+    background-image: linear-gradient(var(--gradient-brand));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* -------------------------- + */
+/* Настройка Slick            | */
+/* -------------------------- + */
+
+.slick-track {
+    padding-top: 16px; /* чтобы не отрезать тень */
+    padding-bottom: 16px; /* чтобы не отрезать тень */
+}
+
+.slick-slide {
+    transform: scale(0.8);
+    transition: .4s ease-out;
+}
+
+.slick-active {
+    transform: scale(1);
+    transition: .4s ease-out;
+}
+
+/* -------------------------- + */
+/* Настройка табов            | */
+/* -------------------------- + */
+
+/* Скрытие ползунка */
+.crop {
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.crop::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* Настройка активного таба */
+.nav-item .nav-link.active,
+.nav-pills .nav-link.active {
+    background-color: var(--color-accent);
+    color: white !important;
+}

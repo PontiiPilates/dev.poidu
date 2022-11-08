@@ -20,9 +20,9 @@ class EventFactory extends Factory
             'title' => $this->faker->text(),
 
             'tags' => $this->faker->randomElement([
-                '{"1":1,"2":2}',
-                '{"1":3,"2":7}',
-                '{"1":4}',
+                '{"1":"поход","2":"экскурсия"}',
+                '{"1":"сплав","2":"поход"}',
+                '{"1":"прогулка"}',
                 '{}',
             ]),
 
@@ -33,6 +33,8 @@ class EventFactory extends Factory
             ]),
 
             'logo' => 'http://placeimg.com/240/240/animals',
+
+            'start' => $this->faker->dateTimeBetween('now', '+1 week'),
         );
     }
 }
