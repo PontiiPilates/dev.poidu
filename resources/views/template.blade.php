@@ -30,6 +30,10 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     {{-- End Main CSS --}}
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
@@ -46,8 +50,10 @@
 <nav class="container mb-5">
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link active rounded-pill text-reset" aria-current="page" href="#"><i
-                    class="bi bi-plus-circle-fill brand me-2"></i>добавить</a>
+            <a type="button" href="" class="nav-link active rounded-pill text-reset" data-bs-toggle="modal"
+               data-bs-target="#addEventModal">
+                <i class="bi bi-plus-circle-fill brand me-2" style="color: white;"></i>добавить</a>
+            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">О проекте</a>
@@ -55,6 +61,94 @@
     </ul>
 </nav>
 {{-- End Navigation --}}
+
+<div class="modal fade" id="addEventModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-element">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Добавление мероприятия</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+
+                <form name="add-event" id="add-event" method="POST" action="">
+                    @csrf
+
+                    <div class="mb-3">
+                        <label for="title" class="col-form-label">Название:</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="url" class="col-form-label">Ссылка на источник:</label>
+                        <input type="text" class="form-control" id="url" name="url">
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label">Дата начала:</label>
+                            <input type="date" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="col">
+                            <label for="recipient-name" class="col-form-label">Время начала:</label>
+                            <input type="time" class="form-control" id="recipient-name">
+                        </div>
+                    </div>
+
+                    <fieldset class="row mb-3">
+                        <legend class="col-form-label pt-0">Форма участия:</legend>
+                        <div class="d-flex justify-content-between">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="form-active" id="form-active-free" value="free" checked>
+                                <label class="form-check-label" for="form-active-free">Бесплатно</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="form-active" id="form-active-donate" value="donate">
+                                <label class="form-check-label" for="form-active-donate">За донат</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="form-active" id="form-active-price" value="price">
+                                <label class="form-check-label" for="form-active-price">Стоимость</label>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <div class="mb-3" id="field-cost">
+                        <label for="cost" class="col-form-label">Стоимость:</label>
+                        <input type="number" class="form-control" id="cost" name="cost">
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="notification" name="notification" value="true">
+                        <label class="form-check-label" for="notification">Уведомить о добавлении</label>
+                    </div>
+
+                    <div class="mb-3" id="field-email">
+                        <label for="email" class="col-form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer justify-content-start">
+                <button type="button" class="btn btn-dark rounded-5" onclick="document.getElementById('add-event').submit()">Добавить</button>
+                <button type="button" class="btn btn-light rounded-5" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
 
 {{-- Slick --}}
 <div class="container device center p-0 mb-5">
@@ -259,6 +353,10 @@
 <script type="text/javascript" src="vendor\slick\slick.min.js"></script>
 <script type="text/javascript" src="/resources/js/slick.js"></script>
 {{-- End Add Slick --}}
+
+{{-- Custom Scripts --}}
+<script type="text/javascript" src="/resources/js/formConstructor.js"></script>
+{{-- End Custom Scripts --}}
 
 </body>
 

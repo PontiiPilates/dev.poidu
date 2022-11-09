@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FrontendController;
 
-Route::get('/', [FrontendController::class, 'general']);
+Route::match(['get', 'post'], '/', [FrontendController::class, 'general']);
