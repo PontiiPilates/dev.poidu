@@ -1,14 +1,14 @@
-var selectorPrice = document.getElementById('form-active-price');
-var fieldCost = $('#field-cost');
+var radioMoneyParticipation = document.getElementById('moneyParticipation');
+var rowPrice = $('#rowPrice');
 
 var selectorNotification = document.getElementById('notification');
-var fieldEmail = $('#field-email');
+var fieldEmail = $('#rowEmail');
 
 // Проверка селектора price на checked при загрузке страницы
-if (selectorPrice.checked) {
-    fieldCost.show(0.3);
+if (radioMoneyParticipation.checked) {
+    rowPrice.show(0.3);
 } else {
-    fieldCost.hide(0.3);
+    rowPrice.hide(0.3);
 }
 
 // Проверка селектора notification на checked при загрузке страницы
@@ -19,18 +19,18 @@ if (selectorNotification.checked) {
 }
 
 // Если выбран селектор free
-$('#form-active-free').change(function () {
-    fieldCost.hide(0.3);
+$('#freeParticipation').change(function () {
+    rowPrice.hide(0.3);
 });
 
 // Если выбран селектор donate
-$('#form-active-donate').change(function () {
-    fieldCost.hide(0.3);
+$('#donateParticipation').change(function () {
+    rowPrice.hide(0.3);
 });
 
 // Если выбран селектор price
-$('#form-active-price').change(function () {
-    fieldCost.show(0.3);
+$('#moneyParticipation').change(function () {
+    rowPrice.show(0.3);
 });
 
 // Если нажатие по notification
@@ -40,4 +40,53 @@ $('#notification').change(function () {
     } else {
         fieldEmail.hide(0.3);
     }
+});
+
+
+/**
+ * Ajax
+ */
+$("#submitAddEvent").click(function (validate) {
+
+    $.ajax({
+        url: 'api/add/event',
+        data: $('#formAddEvent').serializeArray(),
+        type: "POST",
+        // dataType: "json",
+    }).done(function (res) {
+
+        console.log(res);
+
+        // очистка формы от ошибок валидации
+        while ($(".is-invalid").length > 0) {
+            $(".is-invalid").removeClass("is-invalid");
+        }
+
+        // если обнаружены ошибки валидации
+        if (res['invalid']) {
+
+            // получение ключей невалидных полей
+            for (let key of Object.keys(res['invalid'])) {
+
+                // получение полей, содержащих ошибки
+                let invalidField = '#' + key;
+                // добавление класса ошибки
+                $(invalidField).addClass("is-invalid");
+
+                // получение блоков сообщений для ошибок
+                let invalidMessage = '#' + key + 'Invalid';
+                // добавление текста ошибки
+                $(invalidMessage).text(res['invalid'][key]);
+
+            }
+
+        }
+    }).fail(function (xhr, status, errorThrown) {
+        // console.log(xhr, status, errorThrown);
+        // console.log("Error: " + errorThrown);
+        // console.log("Status: " + status);
+        // console.dir(xhr);
+    }).always(function (xhr, status) {
+        // alert("The request is complete!");
+    });
 });

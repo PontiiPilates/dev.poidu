@@ -20,3 +20,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
 
 Route::match(['get', 'post'], '/', [FrontendController::class, 'general']);
+
+/**
+ * Соглашения
+ */
+
+// Если происходит выбор мероприятий по тегу, то адресная строка будет принимать get-параметр "tag", значение которого представляет идентификатор тега

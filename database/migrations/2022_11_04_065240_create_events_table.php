@@ -15,16 +15,19 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->default(NULL)->comment('Заголовок');
-            $table->string('url')->default(NULL)->comment('Ссылка на источник');
-            $table->json('tags')->default(NULL)->comment('Теги');
-            $table->string('payment')->default(NULL)->comment('Форма участия');
-            $table->string('logo')->nullable()->comment('Имя файла логотипа организатора');
-            $table->timestamp('start')->nullable()->comment('Дата и время начала мероприятия');
 
-//            $table->integer('cost')->default(NULL)->comment('Стоимость мероприятя');
-//            $table->integer('free')->default(NULL)->comment('Мероприятие бесплатно');
-//            $table->integer('donate')->default(NULL)->comment('За донат');
+            $table->string('title')->nullable()->comment('Заголовок');
+            $table->string('url')->nullable()->comment('Ссылка на источник');
+            $table->string('logo')->nullable()->comment('Логотип организатора');
+
+            $table->string('participation')->nullable()->comment('Форма участия для фронтенда');
+            $table->integer('price')->nullable()->comment('Стоимость');
+
+            $table->timestamp('begin')->nullable('Дата и время начала');
+            $table->char('date', 16)->nullable()->comment('Дата начала для фронтенда');
+            $table->char('time', 16)->nullable()->comment('Время начала для фронтенда');
+
+            $table->integer('status')->nullable()->comment('Статус публикации');
 
             $table->timestamps();
         });
