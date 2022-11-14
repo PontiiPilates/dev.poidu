@@ -135,6 +135,10 @@ class ApiController extends Controller
         }
 
         // ответ после успешного завершения работы кода
-        return response()->json(['message' => 'ok'], 200);
+        return response()->json([
+            'status' => 'added',
+            'message' => 'Мы получили информацию о мероприятии и скоро его опубликуем!',
+            'link' => 'https://pestov.ru/alias-fugiat-eaque-rerum-quo-voluptatum-blanditiis.html',
+        ], 200);
     }
 }

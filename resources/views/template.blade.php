@@ -40,7 +40,9 @@
 
     {{-- Promo --}}
     <div class="container text-center mt-3 mb-3">
-        <a href="/" class="text-decoration-none"><h1 class="d-inline brand" style="font-size: 48px"><b>Poidu</b></h1></a>
+        <a href="/" class="text-decoration-none">
+            <h1 class="d-inline brand" style="font-size: 48px"><b>Poidu</b></h1>
+        </a>
         <p class="m-0"><small><b>Агрегатор туристических мероприятий</b></small></p>
         <p class="m-0"><small>Знаете о мероприятии? Добавьте его бесплатно!</small></p>
     </div>
@@ -62,9 +64,12 @@
     </nav>
     {{-- End Navigation --}}
 
+
+
+    {{-- Modal Add Event --}}
     <div class="modal fade" id="addEventModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content rounded-element">
+            <div class="modal-content rounded-element" id="addEventModalForm">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Добавление мероприятия</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
@@ -72,9 +77,12 @@
                 <div class="modal-body">
 
                     {{-- Message --}}
-                    <div class="d-flex flex-column mb-3">
-                        <img src="/public/favicon.svg" height="32" class="d-block mb-2" alt="">
-                        <small class="d-block text-center fs-12">Если вы знаете о мероприятии или организуете его сами, то скорее поделитесь им. Заполните форму. Мы лишь проверим достоверность и опубликуем как можно скорее. Придерживайтесь тематики путешествй, приключений, и активного отдыха</small>
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/public/favicon.svg" height="32" class="d-block" alt="">
+                        <small class="d-block fs-12 ms-3">
+                            Если Вы знаете о мероприятии или организуете его сами, то скорее поделитесь им. Подробнее о
+                            правилах размещения
+                            <a href="/about#rules">здесь</a>.</small>
                     </div>
                     {{-- Message --}}
 
@@ -84,8 +92,10 @@
 
                         {{-- Title --}}
                         <div class="mb-3">
-                            <label for="title" class="col-form-label">Название: <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Поход на Солбы">
+                            <label for="title" class="col-form-label">Название: <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="title" name="title"
+                                placeholder="Поход на Солбы">
                             <div id="titleInvalid" class="invalid-feedback"></div>
                         </div>
                         {{-- Title --}}
@@ -93,16 +103,20 @@
                         {{-- Tags --}}
                         @foreach($tags as $tag)
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="{{ $tag->alias }}" id="{{ $tag->alias }}" name="tags[]">
-                            <label class="form-check-label link-primary" for="{{ $tag->alias }}">#{{ $tag->name }}</label>
+                            <input class="form-check-input" type="checkbox" value="{{ $tag->alias }}"
+                                id="{{ $tag->alias }}" name="tags[]">
+                            <label class="form-check-label link-primary" for="{{ $tag->alias }}">#{{ $tag->name
+                                }}</label>
                         </div>
                         @endforeach
                         {{-- Tags --}}
 
                         {{-- URL --}}
                         <div class="mb-3">
-                            <label for="url" class="col-form-label">Ссылка на источник: <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="url" name="url" placeholder="https://source.some...">
+                            <label for="url" class="col-form-label">Ссылка на источник: <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="url" name="url"
+                                placeholder="https://source.some...">
                             <div id="urlInvalid" class="invalid-feedback"></div>
                         </div>
                         {{-- URL --}}
@@ -110,12 +124,15 @@
                         {{-- Дата и время --}}
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="date" class="col-form-label">Дата начала: <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="date" name="date" value="{{ date('Y-m-d') }}">
+                                <label for="date" class="col-form-label">Дата начала: <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="date" name="date"
+                                    value="{{ date('Y-m-d') }}">
                                 <div id="dateInvalid" class="invalid-feedback"></div>
                             </div>
                             <div class="col">
-                                <label for="time" class="col-form-label">Время начала: <span class="text-danger">*</span></label>
+                                <label for="time" class="col-form-label">Время начала: <span
+                                        class="text-danger">*</span></label>
                                 <input type="time" class="form-control" id="time" name="time" value="{{ date('H:i') }}">
                                 <div id="timeInvalid" class="invalid-feedback"></div>
                             </div>
@@ -127,21 +144,26 @@
                             <legend class="col-form-label pt-0">Участие: <span class="text-danger">*</span></legend>
                             <div class="d-flex">
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" id="freeParticipation" name="participation" value="free" checked>
+                                    <input class="form-check-input" type="radio" id="freeParticipation"
+                                        name="participation" value="free" checked>
                                     <label class="form-check-label" for="freeParticipation">Бесплатно</label>
                                 </div>
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" id="donateParticipation" name="participation" value="donate">
+                                    <input class="form-check-input" type="radio" id="donateParticipation"
+                                        name="participation" value="donate">
                                     <label class="form-check-label" for="donateParticipation">Донат</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="moneyParticipation" name="participation" value="money">
+                                    <input class="form-check-input" type="radio" id="moneyParticipation"
+                                        name="participation" value="money">
                                     <label class="form-check-label" for="moneyParticipation">Покупка</label>
                                 </div>
                             </div>
                             <div class="mb-3" id="rowPrice">
-                                <label for="price" class="col-form-label">Стоимость (руб.): <span class="text-danger">*</label>
-                                <input type="number" class="form-control" id="price" name="price" placeholder="1200" value="dfdf">
+                                <label for="price" class="col-form-label">Стоимость (руб.): <span
+                                        class="text-danger">*</label>
+                                <input type="number" class="form-control" id="price" name="price" placeholder="1200"
+                                    value="dfdf">
                                 <div id="priceInvalid" class="invalid-feedback"></div>
                             </div>
                         </fieldset>
@@ -149,7 +171,8 @@
 
                         {{-- Notification --}}
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="notification" name="notification" value="true">
+                            <input class="form-check-input" type="checkbox" id="notification" name="notification"
+                                value="true">
                             <label class="form-check-label" for="notification">Уведомить о добавлении</label>
                         </div>
                         <div class="mb-3" id="rowEmail">
@@ -168,6 +191,9 @@
                 <div class="modal-footer justify-content-start">
                     <button type="button" class="btn btn-dark rounded-5" id="submitAddEvent">Добавить</button>
                     <button type="button" class="btn btn-light rounded-5" data-bs-dismiss="modal">Закрыть</button>
+                    <button id="showAddEventMessage" type="hidden" class="btn btn-primary d-none"
+                        data-bs-target="#addEventModalMessage" data-bs-toggle="modal">Открыть второе модальное
+                        окно</button>
                 </div>
 
             </div>
@@ -175,6 +201,29 @@
         </div>
 
     </div>
+    {{-- Modal Add Event --}}
+
+    {{-- Modal Add Event Message --}}
+    <div class="modal fade" id="addEventModalMessage" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Добавление мероприятия</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="messageAboutEvent" class="alert alert-success" role="alert"></div>
+                    <p>Следить за статусом мероприятия можно по этой ссылке <a href="#" id="eventStatusLink"></a></p>
+                    <p>Подробнее ознакомиться с правилами публикации мероприятий можно <a href="/about#rules">здесь</a>.</p>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button type="button" class="btn btn-dark rounded-5" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal Add Event Message --}}
 
 
 
@@ -187,8 +236,10 @@
             <div class="card-body">
                 <h6 class="card-title">{{ Str::limit($event->title, 29) }}</h6>
 
-                <p class="fs-14">{{ Str::limit('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aspernatur at dignissimos
-                    distinctio eius error est excepturi, fuga fugiat id laborum magnam neque quaerat sapiente sunt tempore
+                <p class="fs-14">{{ Str::limit('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
+                    aspernatur at dignissimos
+                    distinctio eius error est excepturi, fuga fugiat id laborum magnam neque quaerat sapiente sunt
+                    tempore
                     temporibus veniam voluptas.', 120) }}</p>
 
                 <div class="d-flex justify-content-between align-items-baseline">
@@ -304,7 +355,7 @@
     {{-- End Add Slick --}}
 
     {{-- Custom Scripts --}}
-    <script type="text/javascript" src="/resources/js/formConstructor.js"></script>
+    <script type="text/javascript" src="/resources/js/formAddEvent.js"></script>
     {{-- End Custom Scripts --}}
 
 </body>
