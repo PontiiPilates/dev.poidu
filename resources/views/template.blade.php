@@ -214,8 +214,10 @@
                 </div>
                 <div class="modal-body">
                     <div id="messageAboutEvent" class="alert alert-success" role="alert"></div>
-                    {{-- <p>Следить за статусом мероприятия можно по этой ссылке <a href="#" id="eventStatusLink"></a></p> --}}
-                    <p>Подробнее ознакомиться с правилами публикации мероприятий можно <a href="/about#rules">здесь</a>.</p>
+                    {{-- <p>Следить за статусом мероприятия можно по этой ссылке <a href="#" id="eventStatusLink"></a>
+                    </p> --}}
+                    <p>Подробнее ознакомиться с правилами публикации мероприятий можно <a href="/about#rules">здесь</a>.
+                    </p>
                 </div>
                 <div class="modal-footer justify-content-start">
                     <button type="button" class="btn btn-dark rounded-5" data-bs-dismiss="modal">Закрыть</button>
@@ -254,53 +256,53 @@
     {{-- End Slick --}}
 
     {{-- Events --}}
-    <div class="container device">
+    <div class="container device" id="tabs">
 
         {{-- Tabs --}}
-        <ul class="nav nav-pills mb-4 flex-nowrap crop" id="pills-tab" role="tablist"
-            style="margin-left: -12px; margin-right: -12px">
+        <ul class="nav nav-pills mb-4 flex-nowrap crop" id="pills-tab" role="tablist" style="margin-left: -12px; margin-right: -12px">
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill text-nowrap text-reset active" style="margin-left: 12px"
-                    id="pills-today-tab" data-bs-toggle="pill" data-bs-target="#pills-today" type="button" role="tab"
-                    aria-controls="pills-today" aria-selected="true">Сегодня
-                </button>
+                <button class="nav-link rounded-pill text-nowrap text-reset @if(empty($active_tag)) active @endif" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true" style="margin-left: 12px">Все</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill text-nowrap text-reset" id="pills-tomorrow-tab"
-                    data-bs-toggle="pill" data-bs-target="#pills-tomorrow" type="button" role="tab"
-                    aria-controls="pills-tomorrow" aria-selected="false">Завтра
-                </button>
+                <button class="nav-link rounded-pill text-nowrap text-reset" id="pills-today-tab" data-bs-toggle="pill" data-bs-target="#pills-today" type="button" role="tab" aria-controls="pills-today" aria-selected="true">Сегодня</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill text-nowrap text-reset" id="pills-weeckend-tab"
-                    data-bs-toggle="pill" data-bs-target="#pills-weeckend" type="button" role="tab"
-                    aria-controls="pills-weeckend" aria-selected="false">Выходные
-                </button>
+                <button class="nav-link rounded-pill text-nowrap text-reset" id="pills-tomorrow-tab" data-bs-toggle="pill" data-bs-target="#pills-tomorrow" type="button" role="tab" aria-controls="pills-tomorrow" aria-selected="false">Завтра</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill text-nowrap text-reset" style="margin-right: 12px"
-                    id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-childs" type="button" role="tab"
-                    aria-controls="pills-childs" aria-selected="false">С детьми
-                </button>
+                <button class="nav-link rounded-pill text-nowrap text-reset" id="pills-weeckend-tab" data-bs-toggle="pill" data-bs-target="#pills-weeckend" type="button" role="tab" aria-controls="pills-weeckend" aria-selected="false">Выходные</button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill text-nowrap text-reset" id="pills-childs-tab" data-bs-toggle="pill" data-bs-target="#pills-childs" type="button" role="tab" aria-controls="pills-childs" aria-selected="false" style="margin-right: 12px">С детьми</button>
+            </li>
+            @if(!empty($active_tag))
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill text-nowrap text-reset active" id="pills-tags-tab" data-bs-toggle="pill" data-bs-target="#pills-tags" type="button" role="tab" aria-controls="pills-tags" aria-selected="false" style="margin-right: 12px">#{{ $active_tag }}</button>
+            </li>
+            @endif
         </ul>
         {{-- End Tabs --}}
 
         {{-- Tab Contents --}}
         <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab"
-                tabindex="0">
+
+            {{-- Все --}}
+            <div class="tab-pane fade @if(empty($active_tag)) show active @endif" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0" style="min-height: 100vh">
+                @if ( empty($events[0]))
+                <div class="card">
+                    <div class="card-body">Таких мероприятий сейчас нет</div>
+                </div>
+                @endif
                 @foreach($events as $event)
                 <div class="card soft-shadow border-0 rounded-element mb-2">
                     <div class="card-body">
                         <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
                         <div>
                             @foreach($event->tags as $tag)
-                            <a href="?tag={{ $tag->id }}">#{{ $tag->name }}</a>
+                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
                         <p class="card-text"></p>
-
                         <ul class="list-group list-group-horizontal border-0">
                             <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
                                 <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
@@ -312,29 +314,197 @@
                             </li>
                             <li class="list-group-item text-nowrap pt-0 pb-0 pe-0 border-0">
                                 <i class="bi bi-credit-card-2-front-fill color-secondary me-2"></i>
-                                <small>{{ $event->payment }}</small>
+                                <small>{{ $event->participation }}</small>
                             </li>
                         </ul>
-
                     </div>
-
                 </div>
-
                 @endforeach
+            </div>
+            {{-- Все --}}
 
+            {{-- Сегодня --}}
+            <div class="tab-pane fade" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab" tabindex="0" style="min-height: 100vh">
+                @if ( empty($e_today[0]))
+                <div class="card">
+                    <div class="card-body">Таких мероприятий сейчас нет</div>
+                </div>
+                @endif
+                @foreach($e_today as $event)
+                <div class="card soft-shadow border-0 rounded-element mb-2">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
+                        <div>
+                            @foreach($event->tags as $tag)
+                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
+                        <p class="card-text"></p>
+                        <ul class="list-group list-group-horizontal border-0">
+                            <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
+                                <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
+                                <small>{{ $event->date }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 border-0 border-start border-end">
+                                <i class="bi bi-clock-fill color-secondary me-2"></i>
+                                <small>{{ $event->time }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 pe-0 border-0">
+                                <i class="bi bi-credit-card-2-front-fill color-secondary me-2"></i>
+                                <small>{{ $event->participation }}</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
             </div>
-            <div class="tab-pane fade" id="pills-tomorrow" role="tabpanel" aria-labelledby="pills-tomorrow-tab"
-                tabindex="0">
-                Tomorrow
+            {{-- Сегодня --}}
+            
+            {{-- Завтра --}}
+            <div class="tab-pane fade" id="pills-tomorrow" role="tabpanel" aria-labelledby="pills-tomorrow-tab" tabindex="0" style="min-height: 100vh">
+                @if ( empty($e_tomorrow[0]))
+                <div class="card">
+                    <div class="card-body">Таких мероприятий сейчас нет</div>
+                </div>
+                @endif
+                @foreach($e_tomorrow as $event)
+                <div class="card soft-shadow border-0 rounded-element mb-2">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
+                        <div>
+                            @foreach($event->tags as $tag)
+                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
+                        <p class="card-text"></p>
+                        <ul class="list-group list-group-horizontal border-0">
+                            <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
+                                <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
+                                <small>{{ $event->date }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 border-0 border-start border-end">
+                                <i class="bi bi-clock-fill color-secondary me-2"></i>
+                                <small>{{ $event->time }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 pe-0 border-0">
+                                <i class="bi bi-credit-card-2-front-fill color-secondary me-2"></i>
+                                <small>{{ $event->participation }}</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
             </div>
-            <div class="tab-pane fade" id="pills-weeckend" role="tabpanel" aria-labelledby="pills-weeckend-tab"
-                tabindex="0">
-                Weekend
+            {{-- Завтра --}}
+
+            {{-- Выходные --}}
+            <div class="tab-pane fade" id="pills-weeckend" role="tabpanel" aria-labelledby="pills-weeckend-tab" tabindex="0" style="min-height: 100vh">
+                @if ( empty($e_weeckend[0]))
+                <div class="card">
+                    <div class="card-body">Таких мероприятий сейчас нет</div>
+                </div>
+                @endif
+                @foreach($e_weeckend as $event)
+                <div class="card soft-shadow border-0 rounded-element mb-2">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
+                        <div>
+                            @foreach($event->tags as $tag)
+                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
+                        <p class="card-text"></p>
+                        <ul class="list-group list-group-horizontal border-0">
+                            <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
+                                <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
+                                <small>{{ $event->date }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 border-0 border-start border-end">
+                                <i class="bi bi-clock-fill color-secondary me-2"></i>
+                                <small>{{ $event->time }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 pe-0 border-0">
+                                <i class="bi bi-credit-card-2-front-fill color-secondary me-2"></i>
+                                <small>{{ $event->participation }}</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
             </div>
-            <div class="tab-pane fade" id="pills-childs" role="tabpanel" aria-labelledby="pills-childs-tab"
-                tabindex="0">
-                Childs
+            {{-- Выходные --}}
+            
+            {{-- С детьми --}}
+            <div class="tab-pane fade" id="pills-childs" role="tabpanel" aria-labelledby="pills-childs-tab" tabindex="0" style="min-height: 100vh">
+                @if ( empty($e_child[0]))
+                <div class="card">
+                    <div class="card-body">Таких мероприятий сейчас нет</div>
+                </div>
+                @endif
+                @foreach($e_child as $event)
+                <div class="card soft-shadow border-0 rounded-element mb-2">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
+                        <div>
+                            @foreach($event->tags as $tag)
+                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
+                        <p class="card-text"></p>
+                        <ul class="list-group list-group-horizontal border-0">
+                            <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
+                                <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
+                                <small>{{ $event->date }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 border-0 border-start border-end">
+                                <i class="bi bi-clock-fill color-secondary me-2"></i>
+                                <small>{{ $event->time }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 pe-0 border-0">
+                                <i class="bi bi-credit-card-2-front-fill color-secondary me-2"></i>
+                                <small>{{ $event->participation }}</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
             </div>
+            {{-- С детьми --}}
+            
+            {{-- По тегу --}}
+            @if(!empty($active_tag))
+            <div class="tab-pane fade @if(!empty($active_tag)) show active @endif" id="pills-tags" role="tabpanel" aria-labelledby="pills-tags-tab" tabindex="0" style="min-height: 100vh">
+                @foreach($e_tags as $event)
+                <div class="card soft-shadow border-0 rounded-element mb-2">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
+                        <div>
+                            @foreach($event->tags as $tag)
+                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
+                        <p class="card-text"></p>
+                        <ul class="list-group list-group-horizontal border-0">
+                            <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
+                                <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
+                                <small>{{ $event->date }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 border-0 border-start border-end">
+                                <i class="bi bi-clock-fill color-secondary me-2"></i>
+                                <small>{{ $event->time }}</small>
+                            </li>
+                            <li class="list-group-item text-nowrap pt-0 pb-0 pe-0 border-0">
+                                <i class="bi bi-credit-card-2-front-fill color-secondary me-2"></i>
+                                <small>{{ $event->participation }}</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+            {{-- По тегу --}}
+
         </div>
         {{-- End Tab Contents --}}
 
