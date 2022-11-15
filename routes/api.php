@@ -19,4 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 use App\Http\Controllers\ApiController;
+
 Route::post('/add/event', [ApiController::class, 'addEvent']);
+Route::post('/events/publisher', [ApiController::class, 'eventsPublisher']);
+Route::post('/event/update', [ApiController::class, 'eventUpdate']);

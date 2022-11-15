@@ -19,6 +19,7 @@ class Event extends Model
         'begin',
         'date',
         'time',
+        'status',
     ];
 
     /**

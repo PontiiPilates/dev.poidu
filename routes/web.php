@@ -18,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 //});
 
 use App\Http\Controllers\FrontendController;
-
 Route::match(['get', 'post'], '/', [FrontendController::class, 'general']);
+
+use App\Http\Controllers\AdminController;
+Route::match(['get', 'post'], '/admin/events/publisher/273076', [AdminController::class, 'eventsPublisher']);
+Route::match(['get', 'post'], '/admin/event/{id}/update/273076/', [AdminController::class, 'eventUpdate']);
 
 /**
  * Соглашения

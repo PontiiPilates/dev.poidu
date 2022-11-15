@@ -214,7 +214,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="messageAboutEvent" class="alert alert-success" role="alert"></div>
-                    <p>Следить за статусом мероприятия можно по этой ссылке <a href="#" id="eventStatusLink"></a></p>
+                    {{-- <p>Следить за статусом мероприятия можно по этой ссылке <a href="#" id="eventStatusLink"></a></p> --}}
                     <p>Подробнее ознакомиться с правилами публикации мероприятий можно <a href="/about#rules">здесь</a>.</p>
                 </div>
                 <div class="modal-footer justify-content-start">
