@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 08 2022 г., 09:36
+-- Время создания: Ноя 16 2022 г., 07:41
 -- Версия сервера: 5.7.33
 -- Версия PHP: 7.3.29
 
@@ -29,12 +29,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `events` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Заголовок',
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Ссылка на источник',
-  `tags` json NOT NULL COMMENT 'Теги',
-  `payment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Форма участия',
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Имя файла логотипа организатора',
-  `start` timestamp NULL DEFAULT NULL COMMENT 'Дата и время начала мероприятия',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Заголовок',
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ссылка на источник',
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Логотип организатора',
+  `participation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Форма участия для фронтенда',
+  `price` int(11) DEFAULT NULL COMMENT 'Стоимость',
+  `begin` timestamp NULL DEFAULT NULL,
+  `date` char(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Дата начала для фронтенда',
+  `time` char(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Время начала для фронтенда',
+  `status` int(11) DEFAULT NULL COMMENT 'Статус публикации',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -43,17 +46,57 @@ CREATE TABLE `events` (
 -- Дамп данных таблицы `events`
 --
 
-INSERT INTO `events` (`id`, `title`, `url`, `tags`, `payment`, `logo`, `start`, `created_at`, `updated_at`) VALUES
-(1, 'Nam ut ut voluptatem dolores in voluptas consequatur. Fuga quo quis omnis est dolorum illo. Enim dolor voluptatibus et officiis voluptatem dolor. Fugiat voluptatem recusandae vel molestiae eum.', 'https://isaeva.net/dolore-earum-consectetur-omnis.html', '{}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-07 22:26:37', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(2, 'Aliquam eaque sit nihil accusamus reiciendis. Cum eveniet fugiat error nesciunt facilis. Iste doloremque voluptatem nobis.', 'https://morozov.com/fugiat-neque-omnis-doloribus-soluta-debitis-aut.html', '{\"1\": \"прогулка\"}', 'free', 'http://placeimg.com/240/240/animals', '2022-11-06 21:17:36', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(3, 'Iste natus inventore occaecati. Labore quas aliquid saepe autem at. Consectetur velit ut necessitatibus labore rerum iure.', 'http://blinova.ru/', '{}', 'donate', 'http://placeimg.com/240/240/animals', '2022-11-10 09:06:48', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(4, 'Ab corporis fuga unde iusto occaecati. Nisi accusamus doloremque velit vel voluptas debitis quae. Accusantium fugiat atque cumque. Nihil quas error illo nesciunt ut et ut quia.', 'http://www.sitnikova.ru/', '{}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-07 09:41:01', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(5, 'Praesentium autem aut unde quia voluptas quo adipisci. Facilis accusantium aut sint laborum soluta optio et rerum. Voluptatem harum et quisquam provident. Doloribus itaque est aut.', 'https://www.fomin.net/facere-at-sit-molestias-sit-rerum-maxime-sequi', '{\"1\": \"сплав\", \"2\": \"поход\"}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-07 00:49:38', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(6, 'Voluptas eum dolores voluptatibus ipsa praesentium et fugit. Vero illum dolor sequi repellat et sit consequatur.', 'http://pakomov.ru/ut-et-minima-ipsum-et-accusamus.html', '{\"1\": \"поход\", \"2\": \"экскурсия\"}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-12 14:39:05', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(7, 'Debitis id adipisci a qui nam in ex omnis. Sunt rerum quasi aperiam voluptas aut ea. Repudiandae amet nobis qui voluptas. Culpa aliquam et facilis. Maxime incidunt quisquam labore.', 'http://www.ydina.net/', '{\"1\": \"поход\", \"2\": \"экскурсия\"}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-13 01:02:36', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(8, 'Quia molestiae omnis et facilis provident. At qui sed et ab laboriosam.', 'http://www.semenov.ru/atque-id-odio-ea-ut-ipsum-non.html', '{\"1\": \"сплав\", \"2\": \"поход\"}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-07 08:26:24', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(9, 'Qui cupiditate deserunt pariatur voluptatem qui. Ad natus in provident at. Sint consequatur maxime et. Nihil odio et illo velit consequatur reprehenderit.', 'https://www.abramov.com/sunt-distinctio-odit-et-est-sit-laboriosam-ducimus', '{\"1\": \"прогулка\"}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-10 19:08:57', '2022-11-06 12:59:08', '2022-11-06 12:59:08'),
-(10, 'Omnis numquam qui veritatis neque. Adipisci consequuntur veritatis quia aut omnis dolorem dolorem ut. Saepe distinctio qui omnis impedit sunt deleniti ut. Vitae ut unde et porro a voluptas.', 'http://www.ignatov.net/aut-voluptatem-voluptatem-laudantium', '{}', '1200', 'http://placeimg.com/240/240/animals', '2022-11-11 16:00:08', '2022-11-06 12:59:08', '2022-11-06 12:59:08');
+INSERT INTO `events` (`id`, `title`, `url`, `logo`, `participation`, `price`, `begin`, `date`, `time`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Quo tenetur ea quae aperiam rerum sunt. Esse sed ea accusantium numquam. Rem sit exercitationem et odio sunt et. Aspernatur asperiores molestias a alias.', 'http://sergeeva.net/', 'http://placeimg.com/240/240/animals', '1200 руб.', 1200, '2022-11-21 09:37:21', '21 ноября', '16:37', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(2, 'Maxime et quaerat minus ratione consectetur hic quia. Neque est quidem qui eum. Aut placeat omnis nisi cumque eius iusto. Excepturi explicabo sed voluptate doloremque.', 'http://www.lazarev.ru/necessitatibus-non-consequatur-quas-similique-iusto-dolorem', 'http://placeimg.com/240/240/animals', 'Бесплатно', NULL, '2022-11-22 21:59:00', '23 ноября', '04:59', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(3, 'Accusantium est sit soluta iure ducimus occaecati. Accusantium quidem qui amet quibusdam accusantium et voluptatem vel. Beatae veritatis aliquid veniam est sequi dolorum.', 'http://www.vinogradov.org/deserunt-omnis-et-in-autem-ducimus-in-quo.html', 'http://placeimg.com/240/240/animals', 'Бесплатно', NULL, '2022-11-20 12:08:49', '20 ноября', '19:08', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(4, 'Corrupti tempora ut autem. Praesentium nostrum repudiandae fugiat harum explicabo. Ipsa eum praesentium totam totam temporibus eum. A consequuntur a voluptas odit.', 'http://www.mikailova.com/', 'http://placeimg.com/240/240/animals', '1200 руб.', 1200, '2022-11-19 21:55:24', '20 ноября', '04:55', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(5, 'Nam velit ut voluptatem iste. Sapiente hic voluptatem occaecati. Id totam voluptatem libero in enim. Unde dicta asperiores minima unde dolorem nihil.', 'http://www.antonova.org/sint-cupiditate-qui-voluptatem', 'http://placeimg.com/240/240/animals', 'Бесплатно', NULL, '2022-11-22 14:01:32', '22 ноября', '21:01', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(6, 'Autem velit alias occaecati autem recusandae quia. Fugit facilis corporis voluptatem illo harum. Velit voluptatum nisi delectus tenetur exercitationem.', 'https://www.andreeva.com/porro-quidem-veniam-delectus-ratione-aspernatur-corporis', 'http://placeimg.com/240/240/animals', '1200 руб.', 1200, '2022-11-20 16:52:17', '20 ноября', '23:52', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(7, 'Vel sed eveniet modi omnis beatae modi laborum. Nostrum cumque eaque rerum accusamus est iste nemo dicta. Porro explicabo aut natus dolore quo adipisci ut.', 'http://kapustin.net/ex-quibusdam-odit-doloremque-debitis-quibusdam-iure-nulla.html', 'http://placeimg.com/240/240/animals', '1200 руб.', 1200, '2022-11-17 13:31:24', '17 ноября', '20:31', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(8, 'Eligendi accusantium soluta possimus ut voluptatem sit est. Ut tenetur culpa harum neque accusamus nulla.', 'https://sidorov.com/odio-iste-dolorem-aut-quas-ipsa.html', 'http://placeimg.com/240/240/animals', '1200 руб.', 1200, '2022-11-19 16:21:20', '19 ноября', '23:21', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(9, 'Autem sapiente in placeat eveniet qui debitis quas temporibus. Minus optio adipisci quaerat perferendis sed esse rem quos. Sequi vel consequatur vel qui incidunt eos.', 'http://davydov.net/', 'http://placeimg.com/240/240/animals', 'Донат', NULL, '2022-11-22 17:25:19', '23 ноября', '00:25', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39'),
+(10, 'Quia numquam voluptatem est minima. Iste eum quidem deleniti debitis est rerum. Aut dolorum dolores esse nihil dignissimos magni reprehenderit. Non libero mollitia esse excepturi iste.', 'http://lobanova.ru/dignissimos-eos-natus-autem-odit-labore-pariatur-dolor', 'http://placeimg.com/240/240/animals', '1200 руб.', 1200, '2022-11-19 23:58:56', '20 ноября', '06:58', 1, '2022-11-16 04:40:39', '2022-11-16 04:40:39');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `event_tags`
+--
+
+CREATE TABLE `event_tags` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `event_id` bigint(20) UNSIGNED NOT NULL,
+  `tag_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `event_tags`
+--
+
+INSERT INTO `event_tags` (`id`, `event_id`, `tag_id`, `created_at`, `updated_at`) VALUES
+(1, 6, 5, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(2, 9, 2, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(3, 8, 3, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(4, 6, 5, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(5, 3, 4, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(6, 4, 6, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(7, 4, 4, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(8, 4, 5, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(9, 1, 2, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(10, 6, 3, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(11, 4, 6, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(12, 4, 1, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(13, 4, 5, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(14, 10, 1, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(15, 9, 4, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(16, 1, 3, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(17, 4, 1, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(18, 3, 2, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(19, 9, 1, '2022-11-16 04:40:40', '2022-11-16 04:40:40'),
+(20, 2, 2, '2022-11-16 04:40:40', '2022-11-16 04:40:40');
 
 -- --------------------------------------------------------
 
@@ -91,7 +134,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2022_11_04_065240_create_events_table', 1);
+(4, '2022_11_04_065240_create_events_table', 1),
+(5, '2022_11_11_131808_create_tags_table', 1),
+(6, '2022_11_11_175524_create_event_tags_table', 1);
 
 -- --------------------------------------------------------
 
@@ -104,6 +149,32 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tags`
+--
+
+CREATE TABLE `tags` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Имя',
+  `alias` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Алиас',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `tags`
+--
+
+INSERT INTO `tags` (`id`, `name`, `alias`, `created_at`, `updated_at`) VALUES
+(1, 'поход', 'hike', NULL, NULL),
+(2, 'экскурсия', 'excursion', NULL, NULL),
+(3, 'ярмарка', 'fair', NULL, NULL),
+(4, 'фестиваль', 'festival', NULL, NULL),
+(5, 'сплав', 'rafting', NULL, NULL),
+(6, 'сдетьми', 'child', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -133,6 +204,14 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `event_tags`
+--
+ALTER TABLE `event_tags`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_tag_event_idx` (`event_id`),
+  ADD KEY `event_tag_tag_idx` (`tag_id`);
+
+--
 -- Индексы таблицы `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -152,6 +231,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Индексы таблицы `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `users`
 --
 ALTER TABLE `users`
@@ -169,6 +254,12 @@ ALTER TABLE `events`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT для таблицы `event_tags`
+--
+ALTER TABLE `event_tags`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT для таблицы `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -178,13 +269,30 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT для таблицы `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `event_tags`
+--
+ALTER TABLE `event_tags`
+  ADD CONSTRAINT `event_tag_event_fk` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  ADD CONSTRAINT `event_tag_tag_fk` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

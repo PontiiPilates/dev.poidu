@@ -230,8 +230,8 @@
 
 
 
-    {{-- Slick --}}
-    <div class="container device center p-0 mb-5">
+    {{-- Slick Mobile --}}
+    <div class="container device slider-mobile p-0 mb-5 d-md-none">
         @foreach($events as $event)
         <div class="card rounded-element border-0 soft-shadow">
             <img src="{{ $event->logo }}" class="card-img-top rounded-image" alt="{{ $event->logo }}">
@@ -246,14 +246,32 @@
 
                 <div class="d-flex justify-content-between align-items-baseline">
                     <small class="color-secondary">{{ $event->date }} в {{ $event->time }}</small>
-                    <span><b>{{ $event->payment }}</b></span>
+                    <span><b>{{ $event->participation }}</b></span>
                 </div>
 
             </div>
         </div>
         @endforeach
     </div>
-    {{-- End Slick --}}
+    {{-- Slick Mobile --}}
+
+    {{-- Slick Desctop --}}
+    <div class="container device slider-desctop p-0 mb-5 d-none d-md-block">
+        @foreach($events as $event)
+        <div class="card rounded-element border-0 light-shadow" style="margin-left: 12px; margin-right: 12px;">
+            <div class="bg-image rounded-image" style="height: 270px; background-image: url({{ $event->logo }});"></div>
+            <div class="card-body">
+                <h6 class="card-title">{{ Str::limit($event->title, 64) }}</h6>
+                <p class="fs-14">{{ Str::limit('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aspernatur at dignissimos distinctio eius error est excepturi, fuga fugiat id laborum magnam neque quaerat sapiente sunt tempore temporibus veniam voluptas.', 120) }}</p>
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <small class="color-secondary">{{ $event->date }} в {{ $event->time }}</small>
+                    <span><b>{{ $event->participation }}</b></span>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+    {{-- Slick Desctop --}}
 
     {{-- Events --}}
     <div class="container device" id="tabs">
@@ -294,15 +312,14 @@
                 </div>
                 @endif
                 @foreach($events as $event)
-                <div class="card soft-shadow border-0 rounded-element mb-2">
+                <div class="card light-shadow border-0 rounded-element mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
-                        <div>
+                        <a class="text-reset mb-2" href="{{ $event->url}}" target="_blank"><h6 class="card-title text-truncate">{{ $event->title }}</h6></a>
+                        <div class="mb-2">
                             @foreach($event->tags as $tag)
-                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            <a class="me-1" href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
-                        <p class="card-text"></p>
                         <ul class="list-group list-group-horizontal border-0">
                             <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
                                 <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
@@ -331,15 +348,14 @@
                 </div>
                 @endif
                 @foreach($e_today as $event)
-                <div class="card soft-shadow border-0 rounded-element mb-2">
+                <div class="card light-shadow border-0 rounded-element mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
-                        <div>
+                        <a class="text-reset mb-2" href="{{ $event->url}}" target="_blank"><h6 class="card-title text-truncate">{{ $event->title }}</h6></a>
+                        <div class="mb-2">
                             @foreach($event->tags as $tag)
-                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            <a class="me-1" href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
-                        <p class="card-text"></p>
                         <ul class="list-group list-group-horizontal border-0">
                             <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
                                 <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
@@ -368,15 +384,14 @@
                 </div>
                 @endif
                 @foreach($e_tomorrow as $event)
-                <div class="card soft-shadow border-0 rounded-element mb-2">
+                <div class="card light-shadow border-0 rounded-element mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
-                        <div>
+                        <a class="text-reset mb-2" href="{{ $event->url}}" target="_blank"><h6 class="card-title text-truncate">{{ $event->title }}</h6></a>
+                        <div class="mb-2">
                             @foreach($event->tags as $tag)
-                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            <a class="me-1" href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
-                        <p class="card-text"></p>
                         <ul class="list-group list-group-horizontal border-0">
                             <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
                                 <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
@@ -405,15 +420,14 @@
                 </div>
                 @endif
                 @foreach($e_weeckend as $event)
-                <div class="card soft-shadow border-0 rounded-element mb-2">
+                <div class="card light-shadow border-0 rounded-element mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
-                        <div>
+                        <a class="text-reset mb-2" href="{{ $event->url}}" target="_blank"><h6 class="card-title text-truncate">{{ $event->title }}</h6></a>
+                        <div class="mb-2">
                             @foreach($event->tags as $tag)
-                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            <a class="me-1" href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
-                        <p class="card-text"></p>
                         <ul class="list-group list-group-horizontal border-0">
                             <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
                                 <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
@@ -442,15 +456,14 @@
                 </div>
                 @endif
                 @foreach($e_child as $event)
-                <div class="card soft-shadow border-0 rounded-element mb-2">
+                <div class="card light-shadow border-0 rounded-element mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
-                        <div>
+                        <a class="text-reset mb-2" href="{{ $event->url}}" target="_blank"><h6 class="card-title text-truncate">{{ $event->title }}</h6></a>
+                        <div class="mb-2">
                             @foreach($event->tags as $tag)
-                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            <a class="me-1" href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
-                        <p class="card-text"></p>
                         <ul class="list-group list-group-horizontal border-0">
                             <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
                                 <i class="bi bi-calendar-event-fill color-secondary me-2"></i>
@@ -475,15 +488,14 @@
             @if(!empty($active_tag))
             <div class="tab-pane fade @if(!empty($active_tag)) show active @endif" id="pills-tags" role="tabpanel" aria-labelledby="pills-tags-tab" tabindex="0" style="min-height: 100vh">
                 @foreach($e_tags as $event)
-                <div class="card soft-shadow border-0 rounded-element mb-2">
+                <div class="card light-shadow border-0 rounded-element mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">{{ Str::limit($event->title, 39) }}</h6>
-                        <div>
+                        <a class="text-reset mb-2" href="{{ $event->url}}" target="_blank"><h6 class="card-title text-truncate">{{ $event->title }}</h6></a>
+                        <div class="mb-2">
                             @foreach($event->tags as $tag)
-                            <a href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
+                            <a class="me-1" href="?tag={{ $tag->id }}#tabs">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
-                        <p class="card-text"></p>
                         <ul class="list-group list-group-horizontal border-0">
                             <li class="list-group-item text-nowrap pt-0 pb-0 ps-0 border-0">
                                 <i class="bi bi-calendar-event-fill color-secondary me-2"></i>

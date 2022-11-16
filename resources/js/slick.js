@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.center').slick({
+    $('.slider-mobile').slick({
         arrows: false,
         autoplay: true,
         slidesToShow: 1,
@@ -50,5 +50,17 @@ $(document).ready(function () {
                 }
             }
         ]
+    });
+});
+
+$(document).ready(function () {
+    $('.slider-desctop').slick({
+        arrows: true,
+        autoplay: true,
+        // slidesToShow: 3,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplaySpeed: 7000,
+        infinite: true,
     });
 });
