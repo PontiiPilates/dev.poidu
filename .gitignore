@@ -23,3 +23,9 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+# This priject
+.vscode
+.gitignore
+public/images
+public/yandex_ab23ed3d93000f20.html

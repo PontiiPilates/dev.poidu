@@ -1,15 +1,22 @@
 DirectoryIndex public/index.php
 
 <IfModule mod_rewrite.c>
+
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On
 
+    # Переопределение путей для некоторых файлов
+    RewriteRule ^robots.txt$ public/robots.txt [NC]
+    RewriteRule ^favicon.svg$ public/favicon.svg [NC]
+    RewriteRule ^sitemap.xml$ public/sitemap.xml [NC]
+    RewriteRule ^yandex_ab23ed3d93000f20.html$ public/yandex_ab23ed3d93000f20.html [NC]
+
     # Редирект с http на https создан автоматически при заказе бесплатного ssl-сертификата
-#    RewriteCond %{SERVER_PORT} !^443$
-#    RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+    # RewriteCond %{SERVER_PORT} !^443$
+    # RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -24,4 +31,5 @@ DirectoryIndex public/index.php
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ public/index.php [L]
+
 </IfModule>

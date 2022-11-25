@@ -175,7 +175,7 @@ class ApiController extends Controller
             'title' => 'required|min:5',
             'tags' => 'array',
             // 'url' => 'required|url|unique:events,url',
-            'date' => "required|date|after:now-1day",
+            // 'date' => "required|date|after:now-1day",
             'time' => 'required|',
             // 'price' => 'accepted_if:participation,money',
             'email' => 'exclude_without:notification|email:rfc,dns',

@@ -17,14 +17,21 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-use App\Http\Controllers\FrontendController;
+// главная (воронка)
+Route::get('/', function () {
+    return view('about');
+});
 
-Route::match(['get', 'post'], '/', [FrontendController::class, 'general']);
+use App\Http\Controllers\FrontendController;
+// страница мероприятий
+Route::match(['get', 'post'], '/events', [FrontendController::class, 'general']);
 
 use App\Http\Controllers\AdminController;
-
+// страницы администратора
 Route::match(['get', 'post'], '/admin/events/publisher/273076', [AdminController::class, 'eventsPublisher']);
 Route::match(['get', 'post'], '/admin/event/{id}/update/273076/', [AdminController::class, 'eventUpdate']);
+
+
 
 /**
  * Конвенции
