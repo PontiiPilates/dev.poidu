@@ -32,16 +32,5 @@ Route::match(['get', 'post'], '/admin/events/publisher/273076', [AdminController
 Route::match(['get', 'post'], '/admin/event/{id}/update/273076/', [AdminController::class, 'eventUpdate']);
 
 
-
-/**
- * Конвенции
- */
-
-// Если происходит выбор мероприятий по тегу, то адресная строка будет принимать get-параметр "tag", значение которого представляет идентификатор тега
-
-/**
- * Получение сырого запроса
- */
-
-// DB::connection()->enableQueryLog();
-// $queries = DB::getQueryLog();
+// эксперимент с сервис-контейнерами и сервис-провайдерами
+Route::get('/e', [App\Http\Controllers\EduContainerController::class, 'abstract']);
