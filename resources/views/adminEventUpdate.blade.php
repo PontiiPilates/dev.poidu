@@ -18,7 +18,7 @@
     {{-- End Add Bootstrap --}}
 
     {{-- Favicon --}}
-    <link rel="icon" href="/public/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     {{-- End Favicon --}}
 
     {{-- JQuery --}}
@@ -32,7 +32,7 @@
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg bg-light mb-3">
         <div class="container">
-            <div><a class="navbar-brand" href="/admin/events/publisher/273076">Опочевальня
+            <div><a class="navbar-brand" href="{{ route('admin') }}">Опочевальня
                     модератора</a><small>pre-alpha version</small></div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -198,7 +198,7 @@
                 </div>
                 <div class="modal-footer justify-content-start">
                     <button type="button" class="btn btn-dark rounded-5" data-bs-dismiss="modal">Закрыть</button>
-                    <a href="http://dev.poidu/admin/events/publisher/273076" class="btn btn-link">Вернуться в опочевальню модератора</a>
+                    <a href="{{ route('admin') }}" class="btn btn-link">Вернуться в опочевальню модератора</a>
                 </div>
             </div>
         </div>

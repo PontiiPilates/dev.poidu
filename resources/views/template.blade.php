@@ -18,7 +18,7 @@
     {{-- End For SEO --}}
 
     {{-- Канонический адрес --}}
-    <link rel="canonical" href="https://poidu.org/events" />
+    <link rel="canonical" href="https://poidu.org/" />
     {{-- Канонический адрес --}}
 
     {{-- Add Bootstrap --}}
@@ -28,8 +28,8 @@
     {{-- End Add Bootstrap --}}
 
     {{-- Add Slick--}}
-    <link rel="stylesheet" type="text/css" href="vendor\slick\slick.css" />
-    <link rel="stylesheet" type="text/css" href="vendor\slick\slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/storage/vendor/slick/slick.css?v<?=$v?>" />
+    <link rel="stylesheet" type="text/css" href="/storage/vendor/slick/slick-theme.css?v<?=$v?>" />
     {{-- End Add Slick--}}
 
     {{-- Favicon --}}
@@ -37,11 +37,10 @@
     {{-- End Favicon --}}
 
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="/resources/css/style.css?v<?=$v?>">
+    <link rel="stylesheet" href="/storage/css/style.css?v<?=$v?>">
     {{-- End Main CSS --}}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -69,7 +68,7 @@
 
     {{-- Promo --}}
     <div class="container text-center mt-3 mb-3">
-        <a href="/events" class="text-decoration-none">
+        <a href="{{ route('events') }}" class="text-decoration-none">
             <h1 class="d-inline brand" style="font-size: 48px"><b>Poidu</b></h1>
         </a>
         <p class="m-0"><small><b>Агрегатор туристических мероприятий</b></small></p>
@@ -87,7 +86,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">О проекте</a>
+                <a class="nav-link" href="{{ route('about') }}">О проекте</a>
             </li>
         </ul>
     </nav>
@@ -107,7 +106,7 @@
 
                     {{-- Message --}}
                     <div class="d-flex align-items-center mb-3">
-                        <img src="/public/favicon.svg" height="32" class="d-block" alt="">
+                        <img src="favicon.svg" height="32" class="d-block" alt="">
                         <small class="d-block fs-12 ms-3">
                             Если Вы знаете о мероприятии или организуете его сами, то скорее поделитесь им.
                             {{-- Подробнее о правилах размещения --}}
@@ -200,7 +199,7 @@
                         {{-- Форма участия --}}
 
                         {{-- Notification --}}
-                        <div class="form-check">
+                        <div class="form-check invisible">
                             <input class="form-check-input" type="checkbox" id="notification" name="notification"
                                 value="true">
                             <label class="form-check-label" for="notification">Уведомить о добавлении</label>
@@ -246,8 +245,8 @@
                     <div id="messageAboutEvent" class="alert alert-success" role="alert"></div>
                     {{-- <p>Следить за статусом мероприятия можно по этой ссылке <a href="#" id="eventStatusLink"></a>
                     </p> --}}
-                    <p>Подробнее ознакомиться с правилами публикации мероприятий можно <a href="/about#rules">здесь</a>.
-                    </p>
+                    {{-- <p>Подробнее ознакомиться с правилами публикации мероприятий можно <a href="/about#rules">здесь</a>.
+                    </p> --}}
                 </div>
                 <div class="modal-footer justify-content-start">
                     <button type="button" class="btn btn-dark rounded-5" data-bs-dismiss="modal">Закрыть</button>
@@ -687,20 +686,15 @@
     {{-- End Events --}}
 
     {{-- Add Bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
     {{-- End Add Bootstrap --}}
 
-    {{-- Add Slick --}}
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="vendor\slick\slick.min.js"></script>
-    <script type="text/javascript" src="/resources/js/slick.js?v<?=$v?>"></script>
-    {{-- End Add Slick --}}
 
     {{-- Custom Scripts --}}
-    <script type="text/javascript" src="/resources/js/formAddEvent.js?v<?=$v?>"></script>
+    <script type="text/javascript" src="/storage/js/formAddEvent.js?v<?=$v?>"></script>
     {{-- End Custom Scripts --}}
 
 </body>

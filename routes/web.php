@@ -18,17 +18,17 @@ use Illuminate\Support\Facades\Route;
 //});
 
 // главная (воронка)
-Route::get('/', function () {
+Route::get('/about', function () {
     return view('about');
-});
+})->name('about');
 
 use App\Http\Controllers\FrontendController;
 // страница мероприятий
-Route::match(['get', 'post'], '/events', [FrontendController::class, 'general']);
+Route::match(['get', 'post'], '/', [FrontendController::class, 'general'])->name('events');
 
 use App\Http\Controllers\AdminController;
 // страницы администратора
-Route::match(['get', 'post'], '/admin/events/publisher/273076', [AdminController::class, 'eventsPublisher']);
+Route::match(['get', 'post'], '/admin/events/publisher/273076', [AdminController::class, 'eventsPublisher'])->name('admin');
 Route::match(['get', 'post'], '/admin/event/{id}/update/273076/', [AdminController::class, 'eventUpdate']);
 
 

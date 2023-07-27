@@ -10,7 +10,6 @@ class FrontendController extends Controller
 {
     public function general(Request $r)
     {
-
         // данные для вывода всех мероприятий (поумолчанию)
         $events = Event::where('begin', '>=', date('Y-m-d H:i:s'))->orderBy('begin')->where('status', 1)->get();
         // данные для вывода всех тегов (поумолчанию)
